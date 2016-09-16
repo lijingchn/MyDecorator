@@ -31,23 +31,43 @@
 
 
 # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-def printdebug_level(level):
-    def printdebug(func):
-        def __decorator(user):
-            print "enter the login, and debug level is: " + str(level)      # print debug level
-            func(user)
-            print "exit the login"
-        return __decorator
-    return printdebug               # return original decorator
+#def printdebug_level(level):
+#    def printdebug(func):
+#        def __decorator(user):
+#            print "enter the login, and debug level is: " + str(level)      # print debug level
+#            func(user)
+#            print "exit the login"
+#        return __decorator
+#    return printdebug               # return original decorator
+#
+#@printdebug_level(level=5)          # decorator's parameter, debug level set to 5
+#def login(user):
+#    print "{user} is login ~".format(user=user)
+#
+#login("lijing")
 
-@printdebug_level(level=5)          # decorator's parameter, debug level set to 5
+
+
+# >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+def printdebug(func):
+    def __decorator(user):
+        print "enter the login"
+        result = func(user)             # receive the native function call result
+        print "exit the login"
+        return result
+    return __decorator
+
+@printdebug
 def login(user):
-    print "{user} is login ~".format(user=user)
+    print "{user} is login".format(user=user)
+    msg = "success" if user =="lijing" else "fail"
+    return msg          # login with a return value
 
-login("lijing")
-
-
-
+result1 = login("lijing")
+print result1
+print ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+result2 = login("li")
+print result2
 
 
 
